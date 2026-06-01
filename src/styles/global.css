@@ -12,130 +12,140 @@
 /* use a selector-based strategy for dark mode */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* register custom colour properties */
+/* ==========================================================================
+   REGISTER CUSTOM COLOUR PROPERTIES (Light Mode / Default - Old Money Aesthetic)
+   ========================================================================== */
 @property --color-global-bg {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(98.48% 0 0);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(96.11% 0.009 83.2); /* Menggunakan warna Off-White/Cream dari palet (#F4F1EA) */
 }
 @property --color-global-text {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(26.99% 0.0096 235.05);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(18% 0.005 80); /* Hitam arang yang sangat soft (#262626) */
 }
 @property --color-muted {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(44.6% 0.03 256.802);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(52.73% 0.005 80); /* Grey menengah dari palet */
 }
 @property --color-link {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(55.44% 0.0431 185.69);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(27.42% 0.077 22.8); /* Burgundy/Deep Maroon (#58111A) */
 }
 @property --color-accent {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(55.27% 0.195 19.06);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(27.42% 0.077 22.8); /* Senada dengan Burgundy */
 }
 @property --color-accent-2 {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(18.15% 0 0);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(15% 0.005 80); /* Judul (Heading) di Light Mode */
 }
 @property --color-quote {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: oklch(55.27% 0.195 19.06);
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(35.5% 0.06 22.8); /* Blok kutipan Burgundy yang sedikit lebih soft */
 }
 
-/* you could refactor below to use light-dark(), depending on your target audience */
 @theme {
-	--color-global-bg: oklch(98.48% 0 0);
-	--color-global-text: oklch(26.99% 0.0096 235.05);
-	--color-muted: oklch(44.6% 0.03 256.802);
-	--color-link: oklch(55.44% 0.0431 185.69);
-	--color-accent: oklch(55.27% 0.195 19.06);
-	--color-accent-2: oklch(18.15% 0 0);
-	--color-quote: oklch(55.27% 0.195 19.06);
+    --color-global-bg: oklch(96.11% 0.009 83.2);
+    --color-global-text: oklch(18% 0.005 80);
+    --color-muted: oklch(52.73% 0.005 80);
+    --color-link: oklch(27.42% 0.077 22.8);
+    --color-accent: oklch(27.42% 0.077 22.8);
+    --color-accent-2: oklch(15% 0.005 80);
+    --color-quote: oklch(35.5% 0.06 22.8);
 }
 
 @layer base {
-	html {
-		color-scheme: light dark;
-		accent-color: var(--color-accent);
-		scrollbar-gutter: stable;
+    html {
+        color-scheme: light dark;
+        accent-color: var(--color-accent);
+        scrollbar-gutter: stable;
 
-		&[data-theme="light"] {
-			color-scheme: light;
-		}
+        &[data-theme="light"] {
+            color-scheme: light;
+        }
 
-		&[data-theme="dark"] {
-			color-scheme: dark;
-			--color-global-bg: oklch(23.64% 0.0045 248);
-			--color-global-text: oklch(83.54% 0 264);
-			--color-muted: oklch(70.7% 0.022 261.325);
-			--color-link: oklch(70.44% 0.1133 349);
-			--color-accent: oklch(70.91% 0.1415 163.7);
-			--color-accent-2: oklch(94.66% 0 0);
-			--color-quote: oklch(94.8% 0.106 136.49);
-		}
+        /* ==========================================================================
+            DARK MODE COLORS (Old Money - Background Tetap)
+           ========================================================================== */
+        &[data-theme="dark"] {
+            color-scheme: dark;
+            --color-global-bg: oklch(17.43% 0.012 251.2);   /* Tetap #0d1117 (Tidak Diubah) */
+            --color-global-text: oklch(96.11% 0.009 83.2); /* Diubah ke warna Off-White/Cream palet agar mewah */
+            --color-muted: oklch(62.88% 0.004 80.1);       /* Light Grey dari palet */
+            
+            /* Menggunakan warna Burgundy mewah (#80222D) yang dinaikkan sedikit tingkat kecerahannya agar kontras di background hitam */
+            --color-link: oklch(37.56% 0.106 24.3);        
+            --color-accent: oklch(37.56% 0.106 24.3);      
+            
+            /* Menggunakan warna Putih Cream Solid untuk Judul (Heading) agar paling menonjol */
+            --color-accent-2: oklch(98.35% 0.005 254.4);    
+            
+            /* Menggunakan warna Muted Burgundy untuk kutipan blockquote */
+            --color-quote: oklch(45% 0.08 24.3);       
+        }
 
-		--color-mode-transition-duration: 300ms;
-		--color-mode-transition-easing: ease-in-out;
+        --color-mode-transition-duration: 300ms;
+        --color-mode-transition-easing: ease-in-out;
 
-		transition:
-			--color-global-bg var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-global-text var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-muted var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-link var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-accent var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-accent-2 var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing);
-	}
+        transition:
+            --color-global-bg var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-global-text var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-muted var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-link var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-accent var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-accent-2 var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+            --color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing);
+    }
 
-	:target {
-		scroll-margin-block: 5ex;
-	}
+    :target {
+        scroll-margin-block: 5ex;
+    }
 
-	@view-transition {
-		navigation: auto;
-	}
+    @view-transition {
+        navigation: auto;
+    }
 
-	/* Astro image responsive styles, modified from -> https://docs.astro.build/en/guides/images/#responsive-image-styles */
-	:where([data-astro-image]) {
-		object-fit: var(--fit);
-		object-position: var(--pos);
-	}
-	[data-astro-image="full-width"] {
-		width: 100%;
-	}
-	[data-astro-image="constrained"] {
-		max-width: 100%;
-	}
+    /* Astro image responsive styles */
+    :where([data-astro-image]) {
+        object-fit: var(--fit);
+        object-position: var(--pos);
+    }
+    [data-astro-image="full-width"] {
+        width: 100%;
+    }
+    [data-astro-image="constrained"] {
+        max-width: 100%;
+    }
 }
 
 @layer components {
-	@import "./components/admonition.css";
-	@import "./components/github-card.css";
+    @import "./components/admonition.css";
+    @import "./components/github-card.css";
 
-	.cactus-link {
-		@apply hover:decoration-link underline underline-offset-2 hover:decoration-2;
-	}
+    .cactus-link {
+        @apply hover:decoration-link underline underline-offset-2 hover:decoration-2;
+    }
 
-	.title {
-		@apply text-accent-2 text-2xl font-semibold;
-	}
+    .title {
+        @apply text-accent-2 text-2xl font-semibold;
+    }
 }
 
 @utility prose {
-	--tw-prose-body: var(--color-global-text);
-	--tw-prose-bold: var(--color-global-text);
-	--tw-prose-bullets: var(--color-global-text);
-	--tw-prose-code: var(--color-global-text);
-	--tw-prose-headings: var(--color-accent-2);
-	--tw-prose-hr: 0.5px dashed #666;
-	--tw-prose-links: var(--color-global-text);
-	--tw-prose-quotes: var(--color-quote);
-	--tw-prose-th-borders: #666;
+    --tw-prose-body: var(--color-global-text);
+    --tw-prose-bold: var(--color-global-text);
+    --tw-prose-bullets: var(--color-global-text);
+    --tw-prose-code: var(--color-global-text);
+    --tw-prose-headings: var(--color-accent-2);
+    --tw-prose-hr: 0.5px dashed #444; 
+    --tw-prose-links: var(--color-link);    
+    --tw-prose-quotes: var(--color-quote);
+    --tw-prose-th-borders: #444;
 }

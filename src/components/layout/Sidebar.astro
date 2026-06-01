@@ -1,0 +1,205 @@
+---
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { menuLinks } from "@/site.config";
+import { siteConfig } from "@/site.config";
+---
+
+<!-- Mobile Header with Hamburger -->
+<div class="md:hidden fixed top-0 left-0 right-0 z-40 bg-global-bg border-b border-muted/10 px-6 py-4 flex items-center justify-between">
+	<a href="/" class="inline-flex items-center gap-2">
+		<svg
+			aria-hidden="true"
+			class="h-8 w-5"
+			fill="none"
+			focusable="false"
+			viewBox="0 0 272 480"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<title>Astro Cactus Logo</title>
+			<path
+				fill="#cdffb8"
+				d="M181.334 93.333v-40L226.667 80v40zM136.001 53.333 90.667 26.667v426.666L136.001 480zM45.333 220 0 193.334v140L45.333 360z"
+			></path><path
+				fill="#d482ab"
+				d="M90.667 26.667 136.001 0l45.333 26.667-45.333 26.666zM181.334 53.33l45.333-26.72L272 53.33 226.667 80zM136 240l-45.333-26.67v53.34zM0 193.33l45.333-26.72 45.334 26.72L45.333 220zM181.334 93.277 226.667 120l-45.333 26.67z"
+			></path>
+		</svg>
+		<span class="text-base font-bold">{siteConfig.title}</span>
+	</a>
+	<div class="flex items-center gap-3">
+		<ThemeToggle />
+		<button
+			id="mobile-menu-toggle"
+			class="h-6 w-6 flex items-center justify-center rounded hover:bg-muted/10"
+			aria-label="Toggle menu"
+		>
+			<svg
+				class="h-6 w-6 transition-all duration-300"
+				id="menu-icon"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path d="M3.75 9h16.5m-16.5 6.75h16.5" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+			<svg
+				class="h-6 w-6 transition-all duration-300 hidden absolute"
+				id="close-icon"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<!-- Mobile Overlay and Offcanvas Drawer -->
+<div
+	id="mobile-menu-overlay"
+	class="md:hidden fixed inset-0 bg-black/50 z-30 hidden transition-opacity duration-300"
+></div>
+
+<aside
+	id="mobile-menu"
+	class="md:hidden fixed left-0 top-0 h-full w-64 bg-global-bg border-r border-muted/10 z-40 p-6 overflow-y-auto -translate-x-full transition-transform duration-300 ease-in-out pt-20"
+>
+	<!-- Logo & Title -->
+	<a
+		aria-current={Astro.url.pathname === "/" ? "page" : false}
+		class="inline-flex flex-col items-start gap-2 mb-6"
+		href="/"
+	>
+		<svg
+			aria-hidden="true"
+			class="h-10 w-6"
+			fill="none"
+			focusable="false"
+			viewBox="0 0 272 480"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<title>Astro Cactus Logo</title>
+			<path
+				fill="#cdffb8"
+				d="M181.334 93.333v-40L226.667 80v40zM136.001 53.333 90.667 26.667v426.666L136.001 480zM45.333 220 0 193.334v140L45.333 360z"
+			></path><path
+				fill="#d482ab"
+				d="M90.667 26.667 136.001 0l45.333 26.667-45.333 26.666zM181.334 53.33l45.333-26.72L272 53.33 226.667 80zM136 240l-45.333-26.67v53.34zM0 193.33l45.333-26.72 45.334 26.72L45.333 220zM181.334 93.277 226.667 120l-45.333 26.67z"
+			></path>
+		</svg>
+		<span class="text-lg font-bold">{siteConfig.title}</span>
+	</a>
+
+	<!-- Mobile Navigation -->
+	<nav aria-label="Main menu" class="flex flex-col gap-3 mb-6">
+		{
+			menuLinks.map((link) => (
+				<a
+					aria-current={Astro.url.pathname === link.path ? "page" : false}
+					class="text-accent px-3 py-2 font-semibold transition-colors hover:text-accent-2 rounded hover:bg-muted/10 mobile-nav-link"
+					href={link.path}
+				>
+					{link.title}
+				</a>
+			))
+		}
+	</nav>
+
+	<!-- Mobile Theme Toggle -->
+	<div class="pt-4 border-t border-muted/10">
+		<p class="text-xs text-muted mb-2">Theme</p>
+		<ThemeToggle />
+	</div>
+</aside>
+
+<!-- Desktop Sidebar -->
+<aside class="hidden md:flex md:sticky md:top-12 h-fit flex-col gap-6">
+	<!-- Logo & Title -->
+	<a
+		aria-current={Astro.url.pathname === "/" ? "page" : false}
+		class="inline-flex flex-col items-start gap-2"
+		href="/"
+	>
+		<svg
+			aria-hidden="true"
+			class="h-10 w-6"
+			fill="none"
+			focusable="false"
+			viewBox="0 0 272 480"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<title>Astro Cactus Logo</title>
+			<path
+				fill="#cdffb8"
+				d="M181.334 93.333v-40L226.667 80v40zM136.001 53.333 90.667 26.667v426.666L136.001 480zM45.333 220 0 193.334v140L45.333 360z"
+			></path><path
+				fill="#d482ab"
+				d="M90.667 26.667 136.001 0l45.333 26.667-45.333 26.666zM181.334 53.33l45.333-26.72L272 53.33 226.667 80zM136 240l-45.333-26.67v53.34zM0 193.33l45.333-26.72 45.334 26.72L45.333 220zM181.334 93.277 226.667 120l-45.333 26.67z"
+			></path>
+		</svg>
+		<span class="text-lg font-bold">{siteConfig.title}</span>
+	</a>
+
+	<!-- Vertical Navigation -->
+	<nav aria-label="Main menu" class="flex flex-col gap-2">
+		{
+			menuLinks.map((link) => (
+				<a
+					aria-current={Astro.url.pathname === link.path ? "page" : false}
+					class="text-accent px-3 py-2 font-semibold transition-colors hover:text-accent-2"
+					href={link.path}
+				>
+					{link.title}
+				</a>
+			))
+		}
+	</nav>
+
+	<!-- Theme Toggle -->
+	<div class="pt-4 border-t border-muted/10">
+		<ThemeToggle />
+	</div>
+</aside>
+
+<script>
+	const toggle = document.getElementById("mobile-menu-toggle");
+	const menu = document.getElementById("mobile-menu");
+	const overlay = document.getElementById("mobile-menu-overlay");
+	const menuIcon = document.getElementById("menu-icon");
+	const closeIcon = document.getElementById("close-icon");
+	const navLinks = document.querySelectorAll(".mobile-nav-link");
+
+	function closeMenu() {
+		menu?.classList.add("-translate-x-full");
+		overlay?.classList.add("hidden");
+		menuIcon?.classList.remove("hidden");
+		closeIcon?.classList.add("hidden");
+	}
+
+	function openMenu() {
+		menu?.classList.remove("-translate-x-full");
+		overlay?.classList.remove("hidden");
+		menuIcon?.classList.add("hidden");
+		closeIcon?.classList.remove("hidden");
+	}
+
+	toggle?.addEventListener("click", () => {
+		if (menu?.classList.contains("-translate-x-full")) {
+			openMenu();
+		} else {
+			closeMenu();
+		}
+	});
+
+	overlay?.addEventListener("click", closeMenu);
+
+	navLinks.forEach((link) => {
+		link.addEventListener("click", closeMenu);
+	});
+</script>
+
